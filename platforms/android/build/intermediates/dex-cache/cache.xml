@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/mikael/Documentos/IonicProjects/FirebaseChat/platforms/android/build/intermediates/exploded-aar/org.apache.cordova/CordovaLib/6.2.3/debug/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e707a949679fdef9008caaba40a40abdfa9478a2">
+        <dex dex="/home/mikael/Documentos/IonicProjects/FirebaseChat/platforms/android/build/intermediates/pre-dexed/debug/CordovaLib-6.2.3-debug_b59d517d9991ab65a988ba5dd502cdbccfbbfe84.jar" />
+    </item>
+
+</items>
