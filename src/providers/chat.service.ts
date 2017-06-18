@@ -15,6 +15,7 @@ export class ChatService extends BaseService{
     public http: Http
   ) {
     super();
+    this.setChats();
   }
 
   private setChats(): void {

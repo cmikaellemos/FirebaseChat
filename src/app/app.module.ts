@@ -1,3 +1,4 @@
+import { MessageService } from './../providers/message.service';
 import { CapitalizePipes } from './../pipes/capitalize.pipe';
 import { CustomLoggedHeaderComponent } from './../components/custom-logged-header/custom-logged-header';
 import { AuthService } from './../providers/auth.service';
@@ -19,7 +20,6 @@ import { SignupPage } from './../pages/signup/signup';
 
 import {AngularFireModule, FirebaseAppConfig, AuthProviders, AuthMethods} from 'angularfire2';
 import { ChatService } from '../providers/chat.service';
-
 
 
 const firebaseAppConfig : FirebaseAppConfig = {
@@ -65,7 +65,8 @@ const firebaseAuthConfig = {
     UserService,
     AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ChatService
+    ChatService,
+    MessageService
   ]
 })
 export class AppModule {}
