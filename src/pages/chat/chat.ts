@@ -1,8 +1,15 @@
+import { ChatService } from './../../providers/chat.service';
+import { Chat } from './../../models/chat.model';
+import { FirebaseObjectObservable } from 'angularfire2';
+import { MessageService } from './../../providers/message.service';
+import { Message } from './../../models/message.model';
+import { FirebaseListObservable } from 'angularfire2';
 import { UserService } from './../../providers/user.service';
 import { User } from './../../models/user.model';
 import { AuthService } from './../../providers/auth.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-chat',
@@ -10,16 +17,20 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ChatPage {
 
-  messages : string[] = [];
+  messages : FirebaseListObservable<Message[]>;
   pageTitle : string;
   sender : User;
   recipient : User;
+  private chat1: FirebaseObjectObservable<Chat>;
+  private chat2: FirebaseObjectObservable<Chat>
 
   constructor(
     public authService : AuthService,
+    public chatService: ChatService,
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public userService : UserService) {
+    public userService : UserService,
+    public messageService: MessageService) {
   }
 
   ionViewCanEnter() : Promise<boolean> {
@@ -32,12 +43,41 @@ export class ChatPage {
 
     this.userService.currentUser.first().subscribe((currentUser : User) => {
       this.sender = currentUser;
-    });
+
+      this.chat1 = this.chatService.getDeepChat(this.sender.$key, this.recipient.$key);
+      this.chat2 = this.chatService.getDeepChat(this.recipient.$key, this.sender.$key);
+
+      this.messages = this.messageService
+        .getMessages(this.sender.$key, this.recipient.$key);
+      
+      this.messages
+        .first()
+        .subscribe((messages: Message[]) => {
+          if(messages.length === 0) {
+            this.messages = this.messageService
+              .getMessages(this.recipient.$key, this.sender.$key);
+          }
+        })
+  });
     
   }
 
   sendMessage(newMessage : string) : void {
-    this.messages.push(newMessage);
+    if(newMessage){
+      let currentTimestamp : Object = firebase.database.ServerValue.TIMESTAMP;
+
+      this.messageService.create(
+        new Message(
+          this.sender.$key, 
+          newMessage, 
+          currentTimestamp), this.messages
+      ).then(() => {
+        this.chat1.update({lastMessage: newMessage, timestamp: currentTimestamp});
+
+        this.chat2.update({lastMessage: newMessage, timestamp: currentTimestamp});
+      });
+    
+    }
   }
 
 }
