@@ -20,6 +20,7 @@ import { SignupPage } from './../pages/signup/signup';
 
 import {AngularFireModule, FirebaseAppConfig, AuthProviders, AuthMethods} from 'angularfire2';
 import { ChatService } from '../providers/chat.service';
+import { MessageBoxComponent } from '../components/message-box/message-box';
 
 
 const firebaseAppConfig : FirebaseAppConfig = {
@@ -43,7 +44,8 @@ const firebaseAuthConfig = {
     HomePage,
     MyApp,
     SigninPage,
-    SignupPage
+    SignupPage,
+    MessageBoxComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseAppConfig, firebaseAuthConfig),
