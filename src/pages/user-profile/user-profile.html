@@ -4,4 +4,38 @@
 
 <ion-content padding>
   <user-info [user]="currentUser" [isMenu]="false"></user-info>
+
+  <button ion-button block (click)="canEdit = !canEdit">Edit Profile</button>
+
+  <form (ngSubmit)="onSubmit($event)" *ngIf="canEdit" #profileForm="ngForm">
+    <ion-item>
+      <ion-icon name="person" item-end></ion-icon>
+      <ion-input type="text" 
+        placeholder="Name" 
+        required 
+        name="name" 
+        [(ngModel)]="currentUser.name" 
+        minlenght="3"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="at" item-end></ion-icon>
+      <ion-input type="text" 
+        placeholder="Username" 
+        required 
+        name="username" 
+        [(ngModel)]="currentUser.username" 
+        minlenght="3"></ion-input>
+    </ion-item>
+    <!--
+    <ion-item>
+      <ion-icon name="photo" item-end></ion-icon>
+      <ion-input type="text" 
+        placeholder="Photo" 
+        required 
+        name="photo" 
+        [(ngModel)]="currentUser.photo"></ion-input>
+    </ion-item>
+    -->
+    <button ion-button block type="submit" [disabled]="profileForm.form.invalid">Save</button>
+  </form>
 </ion-content>
