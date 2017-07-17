@@ -22,6 +22,7 @@ export class ChatPage {
   pageTitle : string;
   sender : User;
   recipient : User;
+  limitMessages : number = 30;
   private chat1: FirebaseObjectObservable<Chat>;
   private chat2: FirebaseObjectObservable<Chat>
 
@@ -56,14 +57,14 @@ export class ChatPage {
       };
 
       this.messages = this.messageService
-        .getMessages(this.sender.$key, this.recipient.$key);
+        .getMessages(this.sender.$key, this.recipient.$key, this.limitMessages);
       
       this.messages
         .first()
         .subscribe((messages: Message[]) => {
           if(messages.length === 0) {
             this.messages = this.messageService
-              .getMessages(this.recipient.$key, this.sender.$key);
+              .getMessages(this.recipient.$key, this.sender.$key, this.limitMessages);
 
             doSubscribe();
           } else {
@@ -100,4 +101,15 @@ export class ChatPage {
     }, 50) 
   }
 
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation', this.messages[20]);
+
+    setTimeout(() => {
+      this.limitMessages += 30;
+      this.messages = this.messageService
+        .getMessages(this.sender.$key, this.recipient.$key, this.limitMessages);
+
+      infiniteScroll.complete();
+    }, 500)
+  }
 }

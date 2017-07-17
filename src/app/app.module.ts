@@ -1,3 +1,4 @@
+import { UserProfilePage } from './../pages/user-profile/user-profile';
 import { MessageService } from './../providers/message.service';
 import { CapitalizePipes } from './../pipes/capitalize.pipe';
 import { CustomLoggedHeaderComponent } from './../components/custom-logged-header/custom-logged-header';
@@ -21,6 +22,8 @@ import { SignupPage } from './../pages/signup/signup';
 import {AngularFireModule, FirebaseAppConfig, AuthProviders, AuthMethods} from 'angularfire2';
 import { ChatService } from '../providers/chat.service';
 import { MessageBoxComponent } from '../components/message-box/message-box';
+import { UserInfoComponent } from '../components/user-info/user-info';
+import { UserMenuComponent } from '../components/user-menu/user-menu';
 
 
 const firebaseAppConfig : FirebaseAppConfig = {
@@ -45,7 +48,10 @@ const firebaseAuthConfig = {
     MyApp,
     SigninPage,
     SignupPage,
-    MessageBoxComponent
+    MessageBoxComponent,
+    UserInfoComponent,
+    UserMenuComponent,
+    UserProfilePage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseAppConfig, firebaseAuthConfig),
@@ -59,7 +65,8 @@ const firebaseAuthConfig = {
     HomePage,
     MyApp,
     SigninPage,
-    SignupPage
+    SignupPage,
+    UserProfilePage
   ],
   providers: [
     StatusBar,

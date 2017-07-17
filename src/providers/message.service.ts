@@ -19,11 +19,12 @@ export class MessageService extends BaseService{
     return listMessages.push(message)
       .catch(this.handlePromiseError);
   }
-  getMessages(userId1: string, userId2: string): FirebaseListObservable<Message[]> {
+
+  getMessages(userId1: string, userId2: string, limit : number): FirebaseListObservable<Message[]> {
     return <FirebaseListObservable<Message[]>>this.af.database.list('/messages/'+userId1+'-'+userId2,{
       query: {
         orderByChild: 'timestamp',
-        limitToLast: 30
+        limitToLast: limit
       }
     }).catch(this.handleObservableError);
   }

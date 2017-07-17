@@ -27487,3 +27487,22 @@ message-box .text p.timestamp {
 message-box .sender-background {
   background-color: #baf46e;
 }
+
+user-info p {
+  margin-top: -10px;
+}
+
+user-info .round {
+  width: 50%;
+  border-radius: 100%;
+  margin: 25px auto 0 auto;
+}
+
+user-info .custom-background {
+  background-color: #333;
+}
+
+user-info ion-avatar {
+  padding-top: 10px;
+  padding-bottom: 35px;
+}
