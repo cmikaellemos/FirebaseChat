@@ -12,6 +12,7 @@ export class UserProfilePage {
 
   currentUser : User;
   canEdit : boolean = false;
+  private filePhoto : File;
   
   constructor(
     public navCtrl: NavController, 
@@ -34,9 +35,25 @@ export class UserProfilePage {
 
   onSubmit(event : Event) : void {
     event.preventDefault();
-    this.editUser();
+    
+    if(this.filePhoto) {
+      let uploadTask = this.userService.uploadPhoto(this.filePhoto, this.currentUser.$key);
+
+      uploadTask.on('state_changed', (snapchot) => {
+
+      }, (error : Error) => {
+        //catch error
+      }, () => {
+        this.editUser(uploadTask.snapshot.downloadURL)
+      });
+    } else {
+      this.editUser();
+    }
   }
 
+  onPhoto(event){
+    this.filePhoto = event.target.files[0];
+  }
   private editUser(photourl? : string) : void {
     this.userService.edit({
       name : this.currentUser.name,
@@ -44,6 +61,7 @@ export class UserProfilePage {
       photo : photourl || this.currentUser.photo || ''
     }).then(() => {
       this.canEdit = false;
+      this.filePhoto = undefined;
     })
   }
 }
