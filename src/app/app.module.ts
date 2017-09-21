@@ -24,6 +24,7 @@ import { ChatService } from '../providers/chat.service';
 import { MessageBoxComponent } from '../components/message-box/message-box';
 import { UserInfoComponent } from '../components/user-info/user-info';
 import { UserMenuComponent } from '../components/user-menu/user-menu';
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 
 
 const firebaseAppConfig : FirebaseAppConfig = {
@@ -32,7 +33,7 @@ const firebaseAppConfig : FirebaseAppConfig = {
     databaseURL: "https://ionic-2-firebasechat.firebaseio.com",
     storageBucket: "ionic-2-firebasechat.appspot.com",
     messagingSenderId: "752327321609"
-  };
+};
 
 const firebaseAuthConfig = {
     provider : AuthProviders.Custom,
@@ -51,7 +52,8 @@ const firebaseAuthConfig = {
     MessageBoxComponent,
     UserInfoComponent,
     UserMenuComponent,
-    UserProfilePage
+    UserProfilePage,
+    ProgressBarComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseAppConfig, firebaseAuthConfig),
